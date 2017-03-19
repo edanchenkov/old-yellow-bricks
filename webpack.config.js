@@ -31,11 +31,13 @@ module.exports = {
                         loader : 'css-loader', options : {
                             sourceMap : true
                         }
-                    }, {
-                        loader : 'sass-loader', options : {
+                    },
+                        'postcss-loader',
+                        {
+                            loader : 'sass-loader', options : {
                             sourceMap : true
                         }
-                    }],
+                        }],
                     // use style-loader in development
                     fallback : 'style-loader'
                 })
