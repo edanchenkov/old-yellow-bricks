@@ -14,7 +14,7 @@ const giftBox = [
     './images/closed-gift-box.png'
 ];
 
-const kitty = [
+const gameItem = [
     './images/kitty.png'
 ];
 
@@ -51,19 +51,19 @@ let initApp = () => {
     // Set HTML title
     document.title = name;
 
-    preLoadImages(kitty).then((image) => {
+    preLoadImages(gameItem).then((gameItemImage) => {
         /*
          This is not used anywhere only src, use giftBox element
          * */
-        DOMElements.kitty = image[0];
+        DOMElements.gameItem = gameItemImage[0];
     });
 
-    preLoadImages(giftBox).then((image) => {
+    preLoadImages(giftBox).then((giftBoxImage) => {
         addClass(DOMElements.giftScreen, ['weather', 'rain']);
 
-        image = image[0];
+        giftBoxImage = giftBoxImage[0];
         let imageDiv = document.createElement('div');
-        imageDiv.style.backgroundImage = 'url(' + image.src + ')';
+        imageDiv.style.backgroundImage = 'url(' + giftBoxImage.src + ')';
         DOMElements.giftBox = imageDiv;
 
         DOMElements.giftBox.alt = 'Test your luck and look inside the box';
@@ -81,36 +81,42 @@ let initApp = () => {
             });
         });
 
-        preLoadImages(screenShotsUrls).then((images) => {
-            initCarousel(images, DOMElements.slidersContainer);
+        preLoadImages(screenShotsUrls).then((screenShots) => {
+            initCarousel(screenShots, DOMElements.slidersContainer);
         });
 
     });
 
-    preLoadImages([iPadScreenShotForBackground]).then((image) => {
-        image = image[0];
+    preLoadImages([iPadScreenShotForBackground]).then((screenShot) => {
+        screenShot = screenShot[0];
 
-        if (typeof image !== 'undefined') {
-            insertStyleToHead('body::before{background-image:url(' + image.src + ')');
+        if (typeof screenShot !== 'undefined') {
+            insertStyleToHead('body::before{background-image:url(' + screenShot.src + ')');
         }
 
     });
 
-    preLoadImages([gameIcon]).then((image) => {
-        DOMElements.gameIcon = image[0];
+    preLoadImages([gameIcon]).then((gameIconImage) => {
+        DOMElements.gameIcon = gameIconImage[0];
         addClass(DOMElements.gameIcon, ['game-icon', 'hidden']);
         document.body.appendChild(DOMElements.gameIcon);
     });
 
 };
 
+
+/*
+ *   Handles first click that shows second phase of end screen
+ *   @param {Array} urls: Urls of images to be loaded
+ *   @return Promise: Promise resolved as an array of images
+ * */
 let giftOnClickHandler = () => {
     DOMElements.giftBox.classList.remove('shake');
 
     DOMElements.giftBox.onclick = () => {
     };
 
-    DOMElements.giftBox.style.backgroundImage = 'url(' + DOMElements.kitty.src + ')';
+    DOMElements.giftBox.style.backgroundImage = 'url(' + DOMElements.gameItem.src + ')';
 
     animate(DOMElements.giftScreen, {
         classNames : ['hidden'],
@@ -132,8 +138,6 @@ let giftOnClickHandler = () => {
             DOMElements.giftBox.onclick = () => {
                 DOMElements.giftBox.classList.toggle('talk');
             };
-
-
         });
 
         fadeIn(DOMElements.downloadButton);
@@ -146,6 +150,7 @@ let giftOnClickHandler = () => {
  *   Preload images from iTunes
  *   @param {Array} urls: Urls of images to be loaded
  *   @return Promise: Promise resolved as an array of images
+ *   TODO: Optimise this function to return map
  * */
 let preLoadImages = (urls) => {
     let promises = [];
@@ -195,6 +200,22 @@ let preLoadImages = (urls) => {
     return Promise.all(promises)
 };
 
+
+/*
+ *   Waiting for iTunesRequestPromise, once it is resolved,
+ *   we are free to proceed with the actual end screen.
+ * */
+if (typeof window !== 'undefined' && window.hasOwnProperty('iTunesRequestPromise')) {
+    window.iTunesRequestPromise.then(initApp);
+}
+
+
+/*
+ ******************
+ *   HELPERS
+ ******************
+ *   TODO: Move functions below to another file for code structure sake
+ * */
 let fadeIn = (el) => {
     addClass(el, 'animate');
 
@@ -235,13 +256,3 @@ let removeClass = (el, className) => {
     let cl = el.classList;
     cl.remove.apply(cl, className);
 };
-
-/*
- *   Waiting for iTunesRequestPromise, once it is resolved,
- *   we are free to proceed with the actual end screen.
- * */
-if (typeof window !== 'undefined' && window.hasOwnProperty('iTunesRequestPromise')) {
-    window.iTunesRequestPromise.then(initApp);
-}
-
-

@@ -19,7 +19,6 @@ let initCarousel = (images, slidersContainer) => {
         slidersContainer.appendChild(swiperSlideDiv);
     }
 
-
     /*
      *   Init Swiper
      * */
