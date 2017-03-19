@@ -1,0 +1,35 @@
+/*
+    iPhone 5
+*/
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: portrait) {
+
+    html, body {
+        font-size: $default-px-size  * .3;
+    }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: landscape) {
+
+    html, body {
+        font-size: $default-px-size  * .25;
+    }
+
+}
+
+/*
+    iPhone 6
+*/
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation: portrait) {
+
+    html, body {
+        font-size: $default-px-size  * .39;
+    }
+
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation: landscape) {
+    html, body {
+        font-size: $default-px-size  * .3;
+    }
+}

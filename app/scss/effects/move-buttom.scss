@@ -1,0 +1,36 @@
+@mixin move-bottom($object-height) {
+
+    animation: move-bottom 2s linear 0s 1 forwards;
+
+    /*
+        Prevent blurry
+    */
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1.0, 1.0);
+
+    @keyframes move-bottom {
+        50% {
+            transform: scale(1.5, 1.5);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+        }
+
+        50% {
+            //right: 0%;
+        }
+
+        80% {
+            transform: scale(0.8, 0.8);
+            right: 40%;
+        }
+        100% {
+            transform: scale(0.75, 0.75);
+            top: 100%;
+            right: 100%;
+            bottom: $object-height;
+        }
+    }
+}

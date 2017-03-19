@@ -1,0 +1,212 @@
+html, body {
+    font-size: $default-px-size;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serifl;
+}
+
+button:focus {
+    outline: 0;
+}
+
+button, a {
+    cursor: pointer;
+}
+
+body {
+    background-color: $main-background;
+    margin: 0;
+
+    &.sunny-day > .gift-screen-background {
+        opacity: 0;
+    }
+
+    #spinner,
+    .gift {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+
+    }
+
+    .gift {
+        display: block;
+        z-index: 5;
+        height: $gift-height;
+        width: $gift-height;
+
+        $speech-bubble-left: $default-size * 8;
+
+        &.talk::before {
+            content: "";
+            background-color: $speech-bubble-background;
+            border: 1px solid darken($speech-bubble-background, 60%);
+            border-radius: $default-size * 4;
+
+            display: block;
+            left: $speech-bubble-left;
+            top: $default-size * -1.5;
+            padding: $default-size * .5;
+            position: absolute;
+        }
+
+        &.talk::after {
+            font-size: $default-size * 1.5;
+            width: $default-size * 17;
+            background-color: $speech-bubble-background;
+
+            border: 1px solid darken($speech-bubble-background, 60%);
+
+            padding: $default-size * 2;
+            border-radius: $default-size * 2;
+            left: $speech-bubble-left;
+            position: relative;
+            top: $default-size * -11;
+            display: block;
+            text-align: center;
+            font-weight: 900;
+        }
+
+        @keyframes pulse {
+            to {
+                box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);
+            }
+        }
+
+        &.move-to-bottom {
+            @include move-bottom($gift-height);
+        }
+    }
+
+    $default-blur: 30px;
+    $default-brightness: 0.7;
+
+    &::before {
+        content: "";
+        position: fixed;
+        left: 0;
+        right: 0;
+        z-index: -1;
+
+        display: block;
+        //background-image: url('img-here');
+        background-position: center center;
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+
+        -webkit-filter: blur($default-blur);
+        -moz-filter: blur($default-blur);
+        -o-filter: blur($default-blur);
+        -ms-filter: blur($default-blur);
+        filter: blur($default-blur);
+        //
+        //-webkit-filter: brightness($default-brightness);
+        //-moz-filter: brightness($default-brightness);
+        //-o-filter: brightness($default-brightness);
+        //-ms-filter: brightness($default-brightness);
+        //filter: brightness($default-brightness);
+    }
+
+    &.sunny-day {
+
+    }
+}
+
+.swiper-container {
+    background-color: rgba(0, 0, 0, 0.07);
+    opacity: 0;
+    //height: $default-size * 50;
+    //top: $default-size * 3;
+
+    height: 80%;
+    margin: auto;
+    /* padding: 0 6rem; */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+
+    .swiper-slide > div {
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+        height: 100%;
+    }
+}
+
+.visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 2s linear;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.5s, opacity 0.5s linear;
+}
+
+.pure-button {
+    z-index: 10;
+    background: rgb(51, 51, 51);
+    padding: $default-size;
+    border-radius: $default-size;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    bottom: $default-size * 2.5;
+    right: $default-size * 1.5;
+    color: #efeef3;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+
+    box-shadow: 0 0 0 0 rgba(255, 231, 253, 0.7);
+
+    -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    -moz-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+
+    /*
+        Prevent blurry
+    */
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1.0, 1.0);
+
+    img {
+        height: $default-size * 3;
+    }
+
+}
+
+.game-icon {
+    z-index: 10;
+    border: 1px solid black;
+    position: absolute;
+    display: block;
+    top: $default-size;
+    right: $default-size;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.gift-screen-background {
+    background-color: $dark-background;
+    height: 100%;
+    transition: all .75s linear 0s;
+    position: relative;
+    opacity: 1;
+}
+
+
