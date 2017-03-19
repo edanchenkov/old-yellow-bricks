@@ -144,7 +144,7 @@ let giftOnClickHandler = () => {
     };
 
     DOMElements.giftBox.style.backgroundImage = 'url(' + DOMElements.gameItem.src + ')';
-    itemPhrase(DOMElements.giftBox, 'You found me! Will you be my friend?');
+    itemPhrase(DOMElements.giftBox, 'You found me! Tap to be my friend.');
 
 };
 
