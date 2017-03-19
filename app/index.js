@@ -8,7 +8,6 @@ let DOMElements = {};
 
 /*
  *   Load gift boxes images via loader to know their state
- *   TODO: Make it better
  * */
 const giftBox = [
     './images/closed-gift-box.png'
