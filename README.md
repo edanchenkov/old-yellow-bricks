@@ -11,7 +11,7 @@ npm i
 npm run build
 ```
 
-then open `app/endscreen.html` or  `$ open app/endscreen.html` on mac os
+then open `index.html` in your favourite browser or  `$ open index.html` on mac os
 
 ### Run dev
 
@@ -20,7 +20,7 @@ Using webpack dev server
 ```
 npm run dev
 ```
-Open `http://localhost:3000/app/endscreen.html`
+Open `http://localhost:3000`
 
 or
 
