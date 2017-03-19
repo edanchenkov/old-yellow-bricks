@@ -47,37 +47,6 @@ body {
         height: $gift-height;
         width: $gift-height;
 
-        $speech-bubble-left: $default-size * 8;
-
-        &.talk::before {
-            background-color: $speech-bubble-background;
-            border: 1px solid darken($speech-bubble-background, 60%);
-            border-radius: $default-size * 4;
-
-            display: block;
-            left: $speech-bubble-left;
-            top: $default-size * -1.5;
-            padding: $default-size * .5;
-            position: absolute;
-        }
-
-        &.talk::after {
-            font-size: $default-size * 1.5;
-            width: $default-size * 17;
-            background-color: $speech-bubble-background;
-
-            border: 1px solid darken($speech-bubble-background, 60%);
-
-            padding: $default-size * 2;
-            border-radius: $default-size * 2;
-            left: $speech-bubble-left;
-            position: relative;
-            top: $default-size * -11;
-            display: block;
-            text-align: center;
-            font-weight: 500;
-        }
-
         @keyframes pulse {
             to {
                 box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);
@@ -86,6 +55,10 @@ body {
 
         &.move-to-bottom {
             @include move-bottom($gift-height);
+        }
+
+        &.wide-bubble::after {
+            width: $default-size * 15;
         }
     }
 
@@ -98,7 +71,6 @@ body {
         left: 0;
         right: 0;
         z-index: -1;
-
         display: block;
         background-position: center center;
         background-size: cover;
@@ -106,6 +78,33 @@ body {
         height: 100%;
         filter: blur($default-blur);
     }
+}
+
+$speech-bubble-left: $default-size * 8;
+
+.talk::before {
+    background-color: $speech-bubble-background;
+    border: 1px solid darken($speech-bubble-background, 60%);
+    border-radius: $default-size * 4;
+    display: block;
+    left: $speech-bubble-left;
+    top: $default-size * -1.5;
+    padding: $default-size * .5;
+    position: absolute;
+}
+
+.talk::after {
+    font-size: $default-size * 1.25;
+    background-color: $speech-bubble-background;
+    border: 1px solid darken($speech-bubble-background, 60%);
+    padding: $default-size;
+    border-radius: $default-size * 2;
+    left: $speech-bubble-left;
+    position: relative;
+    top: $default-size * -9;
+    display: block;
+    text-align: center;
+    font-weight: 500;
 }
 
 .swiper-container {

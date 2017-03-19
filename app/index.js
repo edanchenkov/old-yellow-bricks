@@ -76,6 +76,7 @@ let initApp = () => {
             keep : true
         }).then(() => {
             fadeIn(DOMElements.giftBox).then(() => {
+                itemPhrase(DOMElements.giftBox, 'Meeeeow! Prrraawww....', 2500);
                 DOMElements.giftBox.onclick = giftOnClickHandler;
                 animate(DOMElements.giftBox, { classNames : ['shake'] });
             });
@@ -117,36 +118,34 @@ let giftOnClickHandler = () => {
     DOMElements.giftBox.classList.remove('shake');
 
     DOMElements.giftBox.onclick = () => {
+        animate(DOMElements.giftScreen, {
+            classNames : ['hidden'],
+            keep : true
+        }).then(() => {
+
+            /* Cancel phrase */
+            itemPhrase(DOMElements.giftBox, '');
+
+            animate(DOMElements.giftBox, {
+                classNames : ['move-to-bottom'],
+                keep : true
+            }).then(() => {
+                itemPhrase(DOMElements.giftBox, 'Get ' + document.title + ' now! And receive a FREE bonus.', 0, true);
+
+                DOMElements.giftBox.onclick = () => {
+                    DOMElements.giftBox.classList.toggle('talk');
+                };
+            });
+
+            fadeIn(DOMElements.downloadButton);
+            fadeIn(DOMElements.gameIcon);
+            fadeIn(DOMElements.slidersContainer.offsetParent);
+        })
     };
 
     DOMElements.giftBox.style.backgroundImage = 'url(' + DOMElements.gameItem.src + ')';
+    itemPhrase(DOMElements.giftBox, 'You found me! Will you be my friend?');
 
-    animate(DOMElements.giftScreen, {
-        classNames : ['hidden'],
-        keep : true
-    }).then(() => {
-
-        animate(DOMElements.giftBox, {
-            classNames : ['move-to-bottom'],
-            keep : true
-        }).then(() => {
-            // animate(DOMElements.giftBox, { classNames : ['talk'] });
-            DOMElements.giftBox.classList.add('talk');
-
-            insertStyleToHead(
-                'body .gift.talk::after{content: "Get ' + document.title + ' now! And receive a FREE bonus.";} ' +
-                'body .gift.talk::before{content: "";}'
-            );
-
-            DOMElements.giftBox.onclick = () => {
-                DOMElements.giftBox.classList.toggle('talk');
-            };
-        });
-
-        fadeIn(DOMElements.downloadButton);
-        fadeIn(DOMElements.gameIcon);
-        fadeIn(DOMElements.slidersContainer.offsetParent);
-    })
 };
 
 /*
@@ -258,4 +257,38 @@ let removeClass = (el, className) => {
 
     let cl = el.classList;
     cl.remove.apply(cl, className);
+};
+
+
+let interval;
+let itemPhrase = (el, text, ms, wideBubble) => {
+
+    if (typeof interval !== 'undefined') {
+        clearInterval(interval);
+    }
+
+    if (typeof text === 'undefined' || !text) {
+        el.classList.toggle('talk');
+        return;
+    }
+
+    if (wideBubble) {
+        addClass(el, 'wide-bubble');
+    } else {
+        removeClass(el, 'wide-bubble');
+    }
+
+    addClass(el, 'talk');
+
+    insertStyleToHead(
+        'body .gift.talk::after{content: "' + text + '";} ' +
+        'body .gift.talk::before{content: "";}'
+    );
+
+    if (typeof ms !== 'undefined' && ms > 0) {
+        interval = setInterval(() => {
+            el.classList.toggle('talk');
+        }, ms)
+    }
+
 };
