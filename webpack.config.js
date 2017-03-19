@@ -1,5 +1,6 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
     filename : 'bundle.css'
@@ -50,6 +51,10 @@ module.exports = {
         publicPath : '/build'
     },
     plugins : [
-        extractSass
+        extractSass,
+        new CopyWebpackPlugin([
+            { from : 'app/images', to : 'images' },
+            { from : 'app/endscreen.html', to : 'index.html' },
+        ])
     ]
 };
