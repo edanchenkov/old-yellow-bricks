@@ -44,7 +44,11 @@ let initApp = () => {
     DOMElements.downloadButton = document.getElementsByClassName('pure-button')[0];
 
     DOMElements.downloadButton.onclick = () => {
-        location.href = gameUrl;
+        if (typeof window.open === 'function') {
+            window.open(gameUrl);
+        } else {
+            location.href = gameUrl;
+        }
     };
 
     // Set HTML title
