@@ -59,31 +59,27 @@ let initApp = () => {
     });
 
     preLoadImages(giftBox).then((image) => {
-        spinner.classList.add('hidden');
         addClass(DOMElements.giftScreen, ['weather', 'rain']);
 
         image = image[0];
-
         let imageDiv = document.createElement('div');
-
         imageDiv.style.backgroundImage = 'url(' + image.src + ')';
-
         DOMElements.giftBox = imageDiv;
 
-        imageDiv.onclick = giftOnClickHandler;
-        imageDiv.alt = 'Test your luck and look inside the box';
-
-
+        DOMElements.giftBox.alt = 'Test your luck and look inside the box';
         addClass(DOMElements.giftBox, ['gift', 'hidden', 'animate']);
 
-        document.body.appendChild(imageDiv);
+        document.body.appendChild(DOMElements.giftBox);
 
-        setTimeout(() => {
-            imageDiv.classList.remove('hidden');
-            animate(imageDiv, { classNames : ['visible'] }).then(() => {
-                animate(imageDiv, { classNames : ['shake'] });
+        animate(DOMElements.spinner, {
+            classNames : ['hidden'],
+            keep : true
+        }).then(() => {
+            fadeIn(DOMElements.giftBox).then(() => {
+                DOMElements.giftBox.onclick = giftOnClickHandler;
+                animate(DOMElements.giftBox, { classNames : ['shake'] });
             });
-        }, 2000);
+        });
 
         preLoadImages(screenShotsUrls).then((images) => {
             initCarousel(images, DOMElements.slidersContainer);
@@ -111,12 +107,13 @@ let initApp = () => {
 let giftOnClickHandler = () => {
     DOMElements.giftBox.classList.remove('shake');
 
-
     DOMElements.giftBox.onclick = () => {
     };
 
-    setTimeout(() => {
-        DOMElements.giftScreen.style.display = 'none';
+    animate(DOMElements.giftScreen, {
+        classNames : ['hidden'],
+        keep : true
+    }).then(() => {
         DOMElements.giftBox.style.backgroundImage = 'url(' + DOMElements.kitty.src + ')';
 
         animate(DOMElements.giftBox, {
@@ -136,10 +133,7 @@ let giftOnClickHandler = () => {
         fadeIn(DOMElements.downloadButton);
         fadeIn(DOMElements.gameIcon);
         fadeIn(DOMElements.slidersContainer.offsetParent);
-
-    }, 1000);
-
-    document.body.classList.add('sunny-day');
+    })
 };
 
 /*
@@ -199,14 +193,16 @@ let fadeIn = (el) => {
     addClass(el, 'animate');
 
     removeClass(el, 'hidden');
-    addClass(el, 'visible');
+
+    return animate(el, { classNames : ['visible'], keep : true });
 };
+
 
 let insertStyleToHead = (innerHtml) => {
     let style = document.createElement('style'),
         head = document.head;
 
-    style.innerHTML = innerHtml; // || 'body .gift.talk::after{content: "Get ' + document.title + ' now! And receive a FREE bonus.";}';
+    style.innerHTML = innerHtml;
 
     head.appendChild(style);
 };

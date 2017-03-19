@@ -17,10 +17,6 @@ body {
     background-color: $main-background;
     margin: 0;
 
-    &.sunny-day > .gift-screen-background {
-        opacity: 0;
-    }
-
     #spinner,
     .gift {
         position: absolute;
@@ -116,10 +112,6 @@ body {
         //-o-filter: brightness($default-brightness);
         //-ms-filter: brightness($default-brightness);
         //filter: brightness($default-brightness);
-    }
-
-    &.sunny-day {
-
     }
 }
 
