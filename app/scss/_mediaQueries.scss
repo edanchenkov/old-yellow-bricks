@@ -42,3 +42,18 @@
         font-size: $default-px-size  * .5;
     }
 }
+
+/* big landscape tablets, laptops, and desktops */
+@media (min-width: 1025px) {
+    html, body {
+        font-size: $default-px-size  * .8;
+    }
+
+}
+
+/* hi-res laptops and desktops */
+@media (min-width: 1281px) {
+    html, body {
+        font-size: $default-px-size;
+    }
+}
