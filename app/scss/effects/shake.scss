@@ -1,8 +1,5 @@
 .shake {
     animation: shake 1s linear infinite;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    //transform: (translateX(3px) rotate(2deg));
 }
 
 @keyframes shake {
@@ -15,6 +12,5 @@
 
     80% {
         transform: (translateX(-3px) rotate(-2deg));
-        //@include prefixed(transform, translateX(-3px) rotate(-2deg));
     }
 }

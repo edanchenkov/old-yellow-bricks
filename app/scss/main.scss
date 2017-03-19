@@ -100,35 +100,19 @@ body {
         z-index: -1;
 
         display: block;
-        //background-image: url('img-here');
         background-position: center center;
         background-size: cover;
         width: 100%;
         height: 100%;
-
-        -webkit-filter: blur($default-blur);
-        -moz-filter: blur($default-blur);
-        -o-filter: blur($default-blur);
-        -ms-filter: blur($default-blur);
         filter: blur($default-blur);
-        //
-        //-webkit-filter: brightness($default-brightness);
-        //-moz-filter: brightness($default-brightness);
-        //-o-filter: brightness($default-brightness);
-        //-ms-filter: brightness($default-brightness);
-        //filter: brightness($default-brightness);
     }
 }
 
 .swiper-container {
     background-color: rgba(0, 0, 0, 0.07);
     opacity: 0;
-    //height: $default-size * 50;
-    //top: $default-size * 3;
-
     height: 80%;
     margin: auto;
-    /* padding: 0 6rem; */
     top: 0;
     bottom: 0;
     left: 0;
@@ -146,13 +130,11 @@ body {
 .visible {
     visibility: visible;
     opacity: 1;
-    //transition: opacity 2s linear;
 }
 
 .hidden {
     visibility: hidden;
     opacity: 0;
-    //transition: visibility 0s 0.5s, opacity 0.5s linear;
 }
 
 .pure-button {
@@ -173,23 +155,12 @@ body {
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 
     box-shadow: 0 0 0 0 rgba(255, 231, 253, 0.7);
-
-    -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
-    -moz-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
-    -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
     animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
-
-    /*
-        Prevent blurry
-    */
-    -webkit-backface-visibility: hidden;
-    -webkit-transform: translateZ(0) scale(1.0, 1.0);
 
     img {
         height: $default-size * 3.5;
         padding: $default-size * .5;
     }
-
 }
 
 .game-icon {
