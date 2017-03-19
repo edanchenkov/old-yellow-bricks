@@ -25,10 +25,3 @@ or
 ```
 npm run no-server
 ```
-
-macOS
-
-open ./builds/MenuTube-darwin-x64/MenuTube.app
-Run dev
-
-npm run dev
