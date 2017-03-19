@@ -53,8 +53,8 @@ module.exports = {
     plugins : [
         extractSass,
         new CopyWebpackPlugin([
-            { from : 'app/images', to : 'images' },
-            { from : 'app/endscreen.html', to : 'index.html' },
+            { from : 'app/images', to : 'images', ignore : ['.DS_Store'] },
+            { from : 'index.html', to : 'index.html' },
         ])
     ]
 };

@@ -10,11 +10,11 @@ let DOMElements = {};
  *   Load gift boxes images via loader to know their state
  * */
 const giftBox = [
-    './images/closed-gift-box.png'
+    './build/images/closed-gift-box.png'
 ];
 
 const gameItem = [
-    './images/kitty.png'
+    './build/images/kitty.png'
 ];
 
 /*
