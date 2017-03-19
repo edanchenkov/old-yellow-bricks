@@ -23,8 +23,5 @@
     "swiper": "^3.4.2",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.2"
-  },
-  "dependencies": {
-    "lory.js": "^2.2.1"
   }
 }

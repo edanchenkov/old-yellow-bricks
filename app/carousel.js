@@ -3,8 +3,6 @@
  * */
 import './../node_modules/swiper/dist/js/swiper.min.js'
 
-// import {lory} from 'lory.js';
-
 let initCarousel = (images, slidersContainer) => {
 
     for (let i = 0; i < images.length; i++) {

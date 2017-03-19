@@ -121,7 +121,6 @@ let initApp = () => {
         DOMElements.gameIcon = image[0];
         image[0].classList.add('game-icon', 'hidden');
         document.body.appendChild(image[0]);
-        // initCarousel(images, DOMElements.slidersContainer);
     });
 
 };
