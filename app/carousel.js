@@ -24,29 +24,15 @@ let initCarousel = (images, slidersContainer) => {
      *   Init Swiper
      * */
     let swiper = new Swiper('.swiper-container', {
-        // Optional parameters
         direction : 'horizontal',
         loop : true,
-
-        // And if we need scrollbar
-        // scrollbar : '.swiper-scrollbar',
         initialSlide : 0,
         // slidesPerView: 2,
-        // Not sure why is that
         autoplay : 800,
         freeModeFluid : true,
         freeMode : true,
         speed : 2000
     });
-
-    // window.swiper = swiper
-
-    // setInterval(() => {
-    //     console.log('here')
-    //
-    //     console.log(swiper)
-    //
-    // }, 10000)
 
 };
 

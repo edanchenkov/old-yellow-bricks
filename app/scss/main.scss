@@ -36,6 +36,10 @@ body {
 
     }
 
+    .animate {
+        transition: opacity 2s linear;
+    }
+
     .gift {
         display: block;
         z-index: 5;
@@ -45,7 +49,6 @@ body {
         $speech-bubble-left: $default-size * 8;
 
         &.talk::before {
-            content: "";
             background-color: $speech-bubble-background;
             border: 1px solid darken($speech-bubble-background, 60%);
             border-radius: $default-size * 4;
@@ -146,13 +149,13 @@ body {
 .visible {
     visibility: visible;
     opacity: 1;
-    transition: opacity 2s linear;
+    //transition: opacity 2s linear;
 }
 
 .hidden {
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s 0.5s, opacity 0.5s linear;
+    //transition: visibility 0s 0.5s, opacity 0.5s linear;
 }
 
 .pure-button {

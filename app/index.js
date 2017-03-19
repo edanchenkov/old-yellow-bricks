@@ -1,5 +1,8 @@
 import './scss/_config.scss';
+import animate from 'animo-animate';
+
 import {initCarousel} from './carousel';
+
 
 let DOMElements = {};
 
@@ -22,27 +25,24 @@ let initApp = () => {
 
     console.info('Running the app', Date.now());
 
-    const data = window.iTunesData;
-    const name = data.trackName;
-    const screenShotsUrls = data.screenshotUrls;
+    const data = window.iTunesData,
+        name = data.trackName,
+        screenShotsUrls = data.screenshotUrls,
 
-    // TODO: In order to support some other resolutions,
-    // TODO: make proper decision which art work to download
-    // TODO: based on window sizes
-    const gameIcon = data.artworkUrl60;
-    const gameUrl = data.trackViewUrl
-        ;
+        // TODO: In order to support some other resolutions,
+        // TODO: make proper decision which art work to download
+        // TODO: based on window sizes
+        gameIcon = data.artworkUrl60, gameUrl = data.trackViewUrl,
 
-    // Specified image[1] for  Cat Room game,
-    // image[0] is more generic and goes for other games.
-    const iPadScreenShotForBackground = data.ipadScreenshotUrls[1] ||
-        data.ipadScreenshotUrls[0];
+        // Specified image[1] for  Cat Room game,
+        // image[0] is more generic and goes for other games.
+        iPadScreenShotForBackground = data.ipadScreenshotUrls[1] ||
+            data.ipadScreenshotUrls[0];
 
     DOMElements.spinner = document.getElementById('spinner');
     DOMElements.slidersContainer = document.getElementsByClassName('swiper-wrapper')[0];
     DOMElements.giftScreen = document.getElementsByClassName('gift-screen-background')[0];
     DOMElements.downloadButton = document.getElementsByClassName('pure-button')[0];
-
 
     DOMElements.downloadButton.onclick = () => {
         location.href = gameUrl;
@@ -50,7 +50,6 @@ let initApp = () => {
 
     // Set HTML title
     document.title = name;
-
 
     preLoadImages(kitty).then((image) => {
         /*
@@ -61,7 +60,7 @@ let initApp = () => {
 
     preLoadImages(giftBox).then((image) => {
         spinner.classList.add('hidden');
-        DOMElements.giftScreen.classList.add('weather', 'rain');
+        addClass(DOMElements.giftScreen, ['weather', 'rain']);
 
         image = image[0];
 
@@ -73,29 +72,17 @@ let initApp = () => {
 
         imageDiv.onclick = giftOnClickHandler;
         imageDiv.alt = 'Test your luck and look inside the box';
-        imageDiv.classList.add('gift', 'hidden');
+
+
+        addClass(DOMElements.giftBox, ['gift', 'hidden', 'animate']);
 
         document.body.appendChild(imageDiv);
 
-
-        /*
-        *   TODO : 3 places where you do this!
-        * */
-        let style = document.createElement('style'),
-            head = document.head;
-
-        DOMElements.giftBox.classList.add('talk');
-        style.innerHTML = 'body .gift.talk::after{content: "Meow!";}';
-
-        head.appendChild(style);
-
-
-        /*
-         *   TODO: handle it via events
-         * */
         setTimeout(() => {
             imageDiv.classList.remove('hidden');
-            imageDiv.classList.add('visible', 'shake');
+            animate(imageDiv, { classNames : ['visible'] }).then(() => {
+                animate(imageDiv, { classNames : ['shake'] });
+            });
         }, 2000);
 
         preLoadImages(screenShotsUrls).then((images) => {
@@ -108,59 +95,48 @@ let initApp = () => {
         image = image[0];
 
         if (typeof image !== 'undefined') {
-            let head = document.head
-                , style = document.createElement('style');
-
-            style.innerHTML = 'body::before{background-image:url(' + image.src + ')';
-            head.appendChild(style);
+            insertStyleToHead('body::before{background-image:url(' + image.src + ')');
         }
 
     });
 
     preLoadImages([gameIcon]).then((image) => {
         DOMElements.gameIcon = image[0];
-        image[0].classList.add('game-icon', 'hidden');
-        document.body.appendChild(image[0]);
+        addClass(DOMElements.gameIcon, ['game-icon', 'hidden']);
+        document.body.appendChild(DOMElements.gameIcon);
     });
 
 };
 
 let giftOnClickHandler = () => {
-    DOMElements.giftBox.style.backgroundImage = 'url(' + DOMElements.kitty.src + ')';
     DOMElements.giftBox.classList.remove('shake');
+
 
     DOMElements.giftBox.onclick = () => {
     };
 
     setTimeout(() => {
         DOMElements.giftScreen.style.display = 'none';
+        DOMElements.giftBox.style.backgroundImage = 'url(' + DOMElements.kitty.src + ')';
 
-        DOMElements.giftBox.classList.add('move-to-bottom');
-        DOMElements.downloadButton.classList.remove('hidden');
-        DOMElements.downloadButton.classList.add('visible');
+        animate(DOMElements.giftBox, {
+            classNames : ['move-to-bottom'],
+            keep : true
+        }).then(() => {
+            // animate(DOMElements.giftBox, { classNames : ['talk'] });
+            DOMElements.giftBox.classList.add('talk');
 
-        DOMElements.gameIcon.classList.remove('hidden');
-        DOMElements.gameIcon.classList.add('visible');
+            insertStyleToHead(
+                'body .gift.talk::after{content: "Get ' + document.title + ' now! And receive a FREE bonus.";} ' +
+                'body .gift.talk::before{content: "";}'
+            );
 
-        setTimeout(() => {
-            DOMElements.slidersContainer.offsetParent.classList.remove('hidden');
-            DOMElements.slidersContainer.offsetParent.classList.add('visible');
+        });
 
-            /*
-             *   Talk animation
-             * */
+        fadeIn(DOMElements.downloadButton);
+        fadeIn(DOMElements.gameIcon);
+        fadeIn(DOMElements.slidersContainer.offsetParent);
 
-            setTimeout(() => {
-                let style = document.createElement('style'),
-                    head = document.head;
-
-                DOMElements.giftBox.classList.add('talk');
-                style.innerHTML = 'body .gift.talk::after{content: "Get ' + document.title + ' now! And I help you to start.";}';
-
-                head.appendChild(style);
-            }, 2000)
-
-        }, 1000)
     }, 1000);
 
     document.body.classList.add('sunny-day');
@@ -217,6 +193,45 @@ let preLoadImages = (urls) => {
     }
 
     return Promise.all(promises)
+};
+
+let fadeIn = (el) => {
+    addClass(el, 'animate');
+
+    removeClass(el, 'hidden');
+    addClass(el, 'visible');
+};
+
+let insertStyleToHead = (innerHtml) => {
+    let style = document.createElement('style'),
+        head = document.head;
+
+    style.innerHTML = innerHtml; // || 'body .gift.talk::after{content: "Get ' + document.title + ' now! And receive a FREE bonus.";}';
+
+    head.appendChild(style);
+};
+
+
+let addClass = (el, className) => {
+    className = className || [];
+
+    if (typeof className !== 'object') {
+        className = [className];
+    }
+
+    let cl = el.classList;
+    cl.add.apply(cl, className);
+};
+
+let removeClass = (el, className) => {
+    className = className || [];
+
+    if (typeof className !== 'object') {
+        className = [className];
+    }
+
+    let cl = el.classList;
+    cl.remove.apply(cl, className);
 };
 
 /*
