@@ -31,10 +31,10 @@ let initApp = () => {
 
         // TODO: In order to support some other resolutions,
         // TODO: make proper decision which art work to download
-        // TODO: based on window sizes
+        // TODO: based on window sizes e.g. for iPad
         gameIcon = data.artworkUrl60, gameUrl = data.trackViewUrl,
 
-        // Specified image[1] for  Cat Room game,
+        // Specified image[1] for  Cat Room game as a background,
         // image[0] is more generic and goes for other games.
         iPadScreenShotForBackground = data.ipadScreenshotUrls[1] ||
             data.ipadScreenshotUrls[0];
@@ -110,11 +110,12 @@ let giftOnClickHandler = () => {
     DOMElements.giftBox.onclick = () => {
     };
 
+    DOMElements.giftBox.style.backgroundImage = 'url(' + DOMElements.kitty.src + ')';
+
     animate(DOMElements.giftScreen, {
         classNames : ['hidden'],
         keep : true
     }).then(() => {
-        DOMElements.giftBox.style.backgroundImage = 'url(' + DOMElements.kitty.src + ')';
 
         animate(DOMElements.giftBox, {
             classNames : ['move-to-bottom'],
@@ -127,6 +128,11 @@ let giftOnClickHandler = () => {
                 'body .gift.talk::after{content: "Get ' + document.title + ' now! And receive a FREE bonus.";} ' +
                 'body .gift.talk::before{content: "";}'
             );
+
+            DOMElements.giftBox.onclick = () => {
+                DOMElements.giftBox.classList.toggle('talk');
+            };
+
 
         });
 
