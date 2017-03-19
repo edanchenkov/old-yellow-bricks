@@ -1,5 +1,6 @@
 /*
  *   Swiper should be replaced first as a part of proper optimisation
+ *   TODO: Enable autoplay after user interact with swiper
  * */
 import './../node_modules/swiper/dist/js/swiper.min.js'
 
@@ -28,8 +29,8 @@ let initCarousel = (images, slidersContainer) => {
         initialSlide : 0,
         // slidesPerView: 2,
         autoplay : 800,
-        freeModeFluid : true,
-        freeMode : true,
+        // freeModeFluid : true,
+        // freeMode : true,
         speed : 2000
     });
 

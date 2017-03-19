@@ -19,7 +19,7 @@ const gameItem = [
 ];
 
 /*
- *   Prepare end screen to be shown to the user
+ *   Download images asynchronously
  * */
 let initApp = () => {
 
@@ -81,6 +81,9 @@ let initApp = () => {
             });
         });
 
+        /*
+         *   Only download screen shots after gift box is loaded for better loading speed
+         * */
         preLoadImages(screenShotsUrls).then((screenShots) => {
             initCarousel(screenShots, DOMElements.slidersContainer);
         });
