@@ -18,7 +18,9 @@ const gameItem = [
 ];
 
 /*
- *   Download images asynchronously
+ *   Download required images in order (though most of them downloading simultaneously),
+ *   but this can be changed if needed. Create main DOM elements and set events.
+ *   Handles main app flow.
  * */
 let initApp = () => {
 
