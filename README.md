@@ -11,6 +11,8 @@ npm i
 npm run build
 ```
 
+then open `app/endscreen.html` or  `$ open app/endscreen.html` on mac os
+
 ### Run dev
 
 Using webpack dev server
