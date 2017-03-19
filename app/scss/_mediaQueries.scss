@@ -56,6 +56,11 @@
 @media (min-width: 1025px) {
     html, body {
         font-size: $default-px-size  * .8;
+
+        .weather.rain:before,
+        .weather.rain:after {
+            background-image: none;
+        }
     }
 
 }
@@ -64,5 +69,10 @@
 @media (min-width: 1281px) {
     html, body {
         font-size: $default-px-size;
+
+        .weather.rain:before,
+        .weather.rain:after {
+            background-image: none;
+        }
     }
 }
